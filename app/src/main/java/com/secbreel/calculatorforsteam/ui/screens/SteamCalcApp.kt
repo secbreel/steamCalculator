@@ -1,4 +1,4 @@
-package com.secbreel.calculatorforsteam
+package com.secbreel.calculatorforsteam.ui.screens
 
 import android.app.Application
 import com.secbreel.calculatorforsteam.di.viewModels
@@ -6,13 +6,14 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class Application : Application() {
+class SteamCalcApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
+            androidContext(this@SteamCalcApp)
             androidLogger(org.koin.core.logger.Level.ERROR)
-            androidContext(this@Application)
-            modules(listOf(viewModels))
+
+            modules(viewModels)
         }
     }
 }

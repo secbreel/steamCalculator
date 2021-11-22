@@ -8,10 +8,14 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.FragmentCalculatorBinding
+import com.secbreel.calculatorforsteam.model.Skin
+import com.secbreel.calculatorforsteam.ui.screens.MainActivityViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
 
     private val viewBinding by viewBinding(FragmentCalculatorBinding::bind)
+    private val activityViewModel by sharedViewModel<MainActivityViewModel>()
     var steamCost = 0f
     var steamAutoCost = 0f
     var steamCostCommission = 0f
@@ -21,9 +25,7 @@ class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.calculateButton.setOnClickListener {
-            getData()
-            calculate()
-            withdrawData()
+            onDataEntered()
         }
 
         viewBinding.resetButton.setOnClickListener {
@@ -32,13 +34,19 @@ class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
 
         viewBinding.autoBuy.setOnEditorActionListener { textView, i, keyEvent ->
             if (i == EditorInfo.IME_ACTION_DONE) {
-                getData()
-                calculate()
-                withdrawData()
+                onDataEntered()
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
+    }
+
+
+    private fun onDataEntered() {
+        getData()
+        calculate()
+        saveDataToViewModel()
+        withdrawData()
     }
 
     private fun calculate() {
@@ -70,5 +78,9 @@ class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
     private fun withdrawData() {
         viewBinding.costWithCommission.text = String.format("%.2f", steamCostCommission)
         viewBinding.profit.text = String.format("%.2f", profit)
+    }
+
+    private fun saveDataToViewModel() {
+        activityViewModel.addSkin(Skin(steamCost, steamAutoCost))
     }
 }
