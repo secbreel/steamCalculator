@@ -3,7 +3,7 @@ package com.secbreel.calculatorforsteam.ui.screens
 import androidx.lifecycle.ViewModel
 import com.secbreel.calculatorforsteam.model.Skin
 
-class MainActivityViewModel : ViewModel() {
+class SharedViewModel : ViewModel() {
     private val skins : MutableList<Skin> = mutableListOf()
 
     fun addSkin(skin : Skin) {

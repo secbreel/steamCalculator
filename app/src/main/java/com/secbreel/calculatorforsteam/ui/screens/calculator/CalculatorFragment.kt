@@ -9,13 +9,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.FragmentCalculatorBinding
 import com.secbreel.calculatorforsteam.model.Skin
-import com.secbreel.calculatorforsteam.ui.screens.MainActivityViewModel
+import com.secbreel.calculatorforsteam.ui.screens.SharedViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
 
     private val viewBinding by viewBinding(FragmentCalculatorBinding::bind)
-    private val activityViewModel by sharedViewModel<MainActivityViewModel>()
+    private val sharedViewModel by sharedViewModel<SharedViewModel>()
     var steamCost = 0f
     var steamAutoCost = 0f
     var steamCostCommission = 0f
@@ -81,6 +81,6 @@ class CalculatorFragment : Fragment(R.layout.fragment_calculator) {
     }
 
     private fun saveDataToViewModel() {
-        activityViewModel.addSkin(Skin(steamCost, steamAutoCost))
+        sharedViewModel.addSkin(Skin(steamCost, steamAutoCost))
     }
 }
