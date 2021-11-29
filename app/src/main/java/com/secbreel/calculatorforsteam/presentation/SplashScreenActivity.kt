@@ -1,4 +1,4 @@
-package com.secbreel.calculatorforsteam.ui.screens
+package com.secbreel.calculatorforsteam.presentation
 
 import android.content.Intent
 import android.os.Bundle

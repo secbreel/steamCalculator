@@ -1,14 +1,12 @@
-package com.secbreel.calculatorforsteam.ui.screens
+package com.secbreel.calculatorforsteam.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.ActivityMainBinding
-import com.secbreel.calculatorforsteam.model.Skin
-import com.secbreel.calculatorforsteam.ui.screens.bottom_sheet.BottomSheetFragment
-import com.secbreel.calculatorforsteam.ui.screens.calculator.CalculatorFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.secbreel.calculatorforsteam.presentation.screens.calculator.CalculatorScreen
+import com.secbreel.calculatorforsteam.presentation.screens.recent_skins.RecentSkinsScreen
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -17,9 +15,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFragments()
-        viewBinding.appBar.setOnMenuItemClickListener {menuItem ->
-            if(menuItem.itemId == R.id.history) {
-                val bottomSheet = BottomSheetFragment()
+        viewBinding.appBar.setOnMenuItemClickListener { menuItem ->
+            if (menuItem.itemId == R.id.history) {
+                val bottomSheet = RecentSkinsScreen()
                 bottomSheet.show(supportFragmentManager, "BottomSheet")
                 return@setOnMenuItemClickListener true
             }
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun initFragments() {
         supportFragmentManager.beginTransaction()
-            .replace(viewBinding.fragmentHost.id, CalculatorFragment())
+            .replace(viewBinding.fragmentHost.id, CalculatorScreen())
             .commit()
     }
 }

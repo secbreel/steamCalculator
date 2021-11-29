@@ -8,9 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".ui.screens.SteamCalcApp">
+        android:name=".app.SteamCalcApp">
         <activity
-            android:name=".ui.screens.SplashScreenActivity"
+            android:name=".presentation.SplashScreenActivity"
             android:exported="true"
             android:theme="@style/Theme.SplashScreen">
             <intent-filter>
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.screens.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.CalculatorForSteam" />
     </application>
