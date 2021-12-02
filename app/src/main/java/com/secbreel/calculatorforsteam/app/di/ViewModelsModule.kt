@@ -5,6 +5,7 @@ import com.secbreel.calculatorforsteam.data.SessionSkinRepository
 import com.secbreel.calculatorforsteam.domain.datasources.SkinDataSource
 import com.secbreel.calculatorforsteam.domain.model.Skin
 import com.secbreel.calculatorforsteam.domain.usecase.CacheSkinUseCase
+import com.secbreel.calculatorforsteam.domain.usecase.CalculateSkinUseCase
 import com.secbreel.calculatorforsteam.presentation.screens.calculator.CalculatorViewModel
 import com.secbreel.calculatorforsteam.presentation.screens.recent_skins.RecentSkinsViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -20,7 +21,8 @@ val viewModels = module {
     viewModel {
         CalculatorViewModel(
             cacheSkinUseCase = get(),
-            selectedSkin = selectedSkin
+            calculateSkinUseCase = get(),
+            selectedSkin = selectedSkin,
         )
     }
 
@@ -37,4 +39,5 @@ val viewModels = module {
     )
 
     factory<CacheSkinUseCase> { CacheSkinUseCaseImpl(repository = get()) }
+    factory<CalculateSkinUseCase> { CalculateSkinUseCase() }
 }

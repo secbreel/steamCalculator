@@ -6,8 +6,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.jakewharton.rxbinding4.widget.editorActionEvents
 import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.FragmentCalculatorBinding
+import com.secbreel.calculatorforsteam.presentation.ext.subscribe
+import com.secbreel.calculatorforsteam.presentation.ext.throttleClicks
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,16 +24,21 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setup()
 
+
         with(viewBinding) {
-            calculateButton.setOnClickListener { calculate() }
-            resetButton.setOnClickListener { viewModel.reset() }
-            autoBuy.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+            calculateButton.throttleClicks().doOnNext { calculate() }.subscribe(viewLifecycleOwner)
+            resetButton.throttleClicks().doOnNext { viewModel.reset() }
+                .subscribe(viewLifecycleOwner)
+
+
+            autoBuy.editorActionEvents {
+                if (it.actionId == EditorInfo.IME_ACTION_DONE) {
                     calculate()
-                    return@setOnEditorActionListener true
+                    return@editorActionEvents true
                 }
-                return@setOnEditorActionListener false
-            }
+                return@editorActionEvents false
+            }.subscribe(viewLifecycleOwner)
+
         }
     }
 
@@ -40,28 +48,28 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnNext { errorText ->
                 Toast.makeText(requireContext(), errorText, Toast.LENGTH_LONG).show()
-            }.subscribe()
+            }.subscribe(viewLifecycleOwner)
 
-        profit
+        defaultProfit
             .observeOn(AndroidSchedulers.mainThread())
             .map { if (it == 0f) "" else String.format("%.2f", it) }
-            .doOnNext(viewBinding.profit::setText).subscribe()
+            .doOnNext(viewBinding.profit::setText).subscribe(viewLifecycleOwner)
 
-        costWithCommission
+        defaultCostWithCommission
             .observeOn(AndroidSchedulers.mainThread())
             .map { if (it == 0f) "" else String.format("%.2f", it) }
-            .doOnNext(viewBinding.costWithCommission::setText).subscribe()
+            .doOnNext(viewBinding.costWithCommission::setText).subscribe(viewLifecycleOwner)
 
         defaultAutoBuy
             .observeOn(AndroidSchedulers.mainThread())
             .map { if (it == 0f) "" else String.format("%.2f", it) }
-            .doOnNext(viewBinding.autoBuy::setText).subscribe()
+            .doOnNext(viewBinding.autoBuy::setText).subscribe(viewLifecycleOwner)
 
         defaultCost
             .observeOn(AndroidSchedulers.mainThread())
             .map { if (it == 0f) "" else String.format("%.2f", it) }
             .doOnNext(viewBinding.steamCost::setText)
-            .subscribe()
+            .subscribe(viewLifecycleOwner)
     }
 
     private fun calculate() = with(viewBinding) {
