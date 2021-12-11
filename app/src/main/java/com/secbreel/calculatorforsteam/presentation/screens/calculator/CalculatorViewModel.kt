@@ -11,8 +11,7 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class CalculatorViewModel(
     private val cacheSkinUseCase: CacheSkinUseCase,
-    private val calculateSkinUseCase: CalculateSkinUseCase,
-    selectedSkin: Observable<Skin>
+    private val calculateSkinUseCase: CalculateSkinUseCase
 ) : ViewModel() {
 
     val defaultAutoBuy: BehaviorSubject<Float> = BehaviorSubject.createDefault(0f)
@@ -21,16 +20,6 @@ class CalculatorViewModel(
     val defaultCostWithCommission: BehaviorSubject<Float> = BehaviorSubject.create()
     val error: BehaviorSubject<String> = BehaviorSubject.create()
 
-    init {
-        selectedSkin
-            .subscribeOn(Schedulers.io())
-            .doOnNext {
-                defaultAutoBuy.onNext(it.skinAutoCost)
-                defaultCost.onNext(it.skinCost)
-                defaultCostWithCommission.onNext(it.costWithCommission)
-                defaultProfit.onNext(it.profit)
-            }.subscribe()
-    }
 
     // TODO: make structure better - Rx chain: validate -> calculate -> publish results -> cache skin
     fun calculate(steamCost: Float, autoBuy: Float) {

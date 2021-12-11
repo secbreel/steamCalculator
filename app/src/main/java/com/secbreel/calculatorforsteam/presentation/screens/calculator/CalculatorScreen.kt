@@ -11,6 +11,7 @@ import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.FragmentCalculatorBinding
 import com.secbreel.calculatorforsteam.presentation.ext.subscribe
 import com.secbreel.calculatorforsteam.presentation.ext.throttleClicks
+import com.secbreel.calculatorforsteam.presentation.screens.recent_skins.RecentSkinsScreen
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,8 +25,28 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setup()
 
-
         with(viewBinding) {
+            appBar.setOnMenuItemClickListener { menuItem ->
+                if (menuItem.itemId == R.id.history) {
+                    val bottomSheet = RecentSkinsScreen()
+                    bottomSheet.show(childFragmentManager, "BottomSheet")
+                    return@setOnMenuItemClickListener true
+                }
+
+                return@setOnMenuItemClickListener false
+            }
+
+            childFragmentManager.setFragmentResultListener(
+                "bottomSheet",
+                viewLifecycleOwner
+            ) { _, bundle ->
+                steamCost.setText(bundle.getFloat("cost").toString())
+                autoBuy.setText(bundle.getFloat("autoCost").toString())
+                costWithCommission.text = bundle.getFloat("costWithCommission").toString()
+                profit.text = bundle.getFloat("profit").toString()
+
+            }
+
             calculateButton.throttleClicks().doOnNext { calculate() }.subscribe(viewLifecycleOwner)
             resetButton.throttleClicks().doOnNext { viewModel.reset() }
                 .subscribe(viewLifecycleOwner)

@@ -8,20 +8,6 @@
     tools:context=".presentation.MainActivity"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:theme="@style/Theme.CalculatorForSteam"
-        android:background="?attr/colorPrimary"
-        app:title="Steam Calculator"
-        app:titleTextColor="?attr/colorOnBackground"
-        app:titleCentered="true"
-        app:menu="@menu/appbar_menu"/>
-
     <FrameLayout
         android:id="@+id/fragmentHost"
         android:layout_width="match_parent"
@@ -29,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBar">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

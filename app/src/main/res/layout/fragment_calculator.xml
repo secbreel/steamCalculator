@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screens.calculator.CalculatorScreen">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:theme="@style/Theme.CalculatorForSteam"
+            android:background="?attr/colorPrimary"
+            app:title="Steam Calculator"
+            app:titleTextColor="?attr/colorOnBackground"
+            app:titleCentered="true"
+            app:menu="@menu/appbar_menu"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

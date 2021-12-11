@@ -15,19 +15,15 @@ import org.koin.dsl.module
 
 val viewModels = module {
 
-    // TODO: это херня, подумай как можно сделать с помощью targetFragment и callback
-    val selectedSkin = PublishSubject.create<Skin>()
-
     viewModel {
         CalculatorViewModel(
             cacheSkinUseCase = get(),
             calculateSkinUseCase = get(),
-            selectedSkin = selectedSkin,
         )
     }
 
     viewModel {
-        RecentSkinsViewModel(dataSource = get(), selectedSkin = selectedSkin)
+        RecentSkinsViewModel(dataSource = get())
     }
 
     // TODO: decompose

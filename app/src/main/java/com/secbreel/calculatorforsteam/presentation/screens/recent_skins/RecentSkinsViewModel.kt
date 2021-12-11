@@ -8,8 +8,7 @@ import io.reactivex.rxjava3.subjects.BehaviorSubject
 import io.reactivex.rxjava3.subjects.PublishSubject
 
 class RecentSkinsViewModel(
-    dataSource: SkinDataSource,
-    private val selectedSkin: PublishSubject<Skin>
+    dataSource: SkinDataSource
 ) : ViewModel() {
 
     val skins: BehaviorSubject<List<Skin>> = BehaviorSubject.createDefault(listOf())
@@ -21,7 +20,4 @@ class RecentSkinsViewModel(
             .subscribe()
     }
 
-    fun selectSkin(skin: Skin) {
-        selectedSkin.onNext(skin)
-    }
 }
