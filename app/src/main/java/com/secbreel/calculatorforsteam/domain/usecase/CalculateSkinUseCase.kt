@@ -11,7 +11,7 @@ class CalculateSkinUseCase {
             .doOnNext {
                 with(it) {
                     costWithCommission = skinCost - (skinCost * 0.13f)
-                    profit = skinAutoCost - costWithCommission
+                    profit = costWithCommission - skinAutoCost
                 }
             }
     }
