@@ -25,15 +25,4 @@ val viewModels = module {
     viewModel {
         RecentSkinsViewModel(dataSource = get())
     }
-
-    // TODO: decompose
-    single { SessionSkinRepository() }.binds(
-        arrayOf(
-            SessionSkinRepository::class,
-            SkinDataSource::class
-        )
-    )
-
-    factory<CacheSkinUseCase> { CacheSkinUseCaseImpl(repository = get()) }
-    factory<CalculateSkinUseCase> { CalculateSkinUseCase() }
 }
