@@ -42,6 +42,14 @@ class CalculatorViewModel(
             .subscribe()
     }
 
+    fun setDataFromHistory(skinCost: Float, autoBuy: Float, costWithCommission: Float, profit: Float) {
+        defaultCost.onNext(skinCost)
+        defaultAutoBuy.onNext(autoBuy)
+        defaultCostWithCommission.onNext(costWithCommission)
+        defaultProfit.onNext(profit)
+    }
+
+
     fun reset() {
         defaultProfit.onNext(0f)
         defaultCostWithCommission.onNext(0f)

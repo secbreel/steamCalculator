@@ -40,10 +40,12 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
                 "bottomSheet",
                 viewLifecycleOwner
             ) { _, bundle ->
-                steamCost.setText(bundle.getFloat("cost").toString())
-                autoBuy.setText(bundle.getFloat("autoCost").toString())
-                costWithCommission.text = bundle.getFloat("costWithCommission").toString()
-                profit.text = bundle.getFloat("profit").toString()
+                viewModel.setDataFromHistory(
+                    bundle.getFloat("cost"),
+                    bundle.getFloat("autoCost"),
+                    bundle.getFloat("costWithCommission"),
+                    bundle.getFloat("profit")
+                )
 
             }
 
