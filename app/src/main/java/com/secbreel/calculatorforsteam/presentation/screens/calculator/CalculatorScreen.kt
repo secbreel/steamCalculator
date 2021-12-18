@@ -26,6 +26,10 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
         viewModel.setup()
 
         with(viewBinding) {
+            appBar.setNavigationOnClickListener {
+                drawerLayout.open()
+            }
+
             appBar.setOnMenuItemClickListener { menuItem ->
                 if (menuItem.itemId == R.id.history) {
                     val bottomSheet = RecentSkinsScreen()
