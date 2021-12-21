@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group>
+    <item
+        android:id="@+id/title"
+        android:enabled="false"
+        android:title="Меню">
+
+    </item>
+    <group android:checkableBehavior="all">
         <item
             android:id="@+id/calculator"
+            android:checkable="true"
             android:icon="@drawable/ic_baseline_calculate_24"
-            android:title="калькулятор"
-            android:checked="true"/>
+            android:title="калькулятор" />
         <item
             android:id="@+id/notes"
+            android:checkable="true"
             android:icon="@drawable/ic_baseline_storage_24"
-            android:title="закладки"/>
+            android:title="закладки" />
 
     </group>
 </menu>

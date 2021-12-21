@@ -4,14 +4,15 @@ import androidx.lifecycle.ViewModel
 import com.secbreel.calculatorforsteam.domain.model.Skin
 import com.secbreel.calculatorforsteam.domain.usecase.CacheSkinUseCase
 import com.secbreel.calculatorforsteam.domain.usecase.CalculateSkinUseCase
+import com.secbreel.calculatorforsteam.presentation.navigation.InitialRouter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 class CalculatorViewModel(
     private val cacheSkinUseCase: CacheSkinUseCase,
-    private val calculateSkinUseCase: CalculateSkinUseCase
+    private val calculateSkinUseCase: CalculateSkinUseCase,
+    private val router: InitialRouter
 ) : ViewModel() {
 
     val defaultAutoBuy: BehaviorSubject<Float> = BehaviorSubject.createDefault(0f)
@@ -55,5 +56,9 @@ class CalculatorViewModel(
         defaultCostWithCommission.onNext(0f)
         defaultAutoBuy.onNext(0f)
         defaultCost.onNext(0f)
+    }
+
+    fun navigateToNotes() {
+        router.navigateToNotes()
     }
 }

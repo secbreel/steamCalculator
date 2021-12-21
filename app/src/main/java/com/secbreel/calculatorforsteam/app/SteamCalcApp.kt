@@ -1,6 +1,7 @@
 package com.secbreel.calculatorforsteam.app
 
 import android.app.Application
+import com.secbreel.calculatorforsteam.app.di.navigation
 import com.secbreel.calculatorforsteam.app.di.reps
 import com.secbreel.calculatorforsteam.app.di.useCases
 import com.secbreel.calculatorforsteam.app.di.viewModels
@@ -15,7 +16,7 @@ class SteamCalcApp : Application() {
             androidContext(this@SteamCalcApp)
             androidLogger(org.koin.core.logger.Level.ERROR)
 
-            modules(listOf(reps, useCases, viewModels))
+            modules(listOf(reps, useCases, viewModels, navigation))
         }
     }
 }

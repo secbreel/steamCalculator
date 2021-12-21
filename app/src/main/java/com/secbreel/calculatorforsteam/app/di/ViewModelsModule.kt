@@ -7,6 +7,7 @@ import com.secbreel.calculatorforsteam.domain.model.Skin
 import com.secbreel.calculatorforsteam.domain.usecase.CacheSkinUseCase
 import com.secbreel.calculatorforsteam.domain.usecase.CalculateSkinUseCase
 import com.secbreel.calculatorforsteam.presentation.screens.calculator.CalculatorViewModel
+import com.secbreel.calculatorforsteam.presentation.screens.notes.NotesViewModel
 import com.secbreel.calculatorforsteam.presentation.screens.recent_skins.RecentSkinsViewModel
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,10 +20,15 @@ val viewModels = module {
         CalculatorViewModel(
             cacheSkinUseCase = get(),
             calculateSkinUseCase = get(),
+            router = get()
         )
     }
 
     viewModel {
         RecentSkinsViewModel(dataSource = get())
+    }
+
+    viewModel {
+        NotesViewModel( router = get())
     }
 }

@@ -1,6 +1,7 @@
 package com.secbreel.calculatorforsteam.presentation.screens.calculator
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.secbreel.calculatorforsteam.R
 import com.secbreel.calculatorforsteam.databinding.FragmentCalculatorBinding
 import com.secbreel.calculatorforsteam.presentation.ext.subscribe
 import com.secbreel.calculatorforsteam.presentation.ext.throttleClicks
+import com.secbreel.calculatorforsteam.presentation.screens.notes.NotesScreen
 import com.secbreel.calculatorforsteam.presentation.screens.recent_skins.RecentSkinsScreen
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +26,11 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setup()
+        setUpView()
 
+    }
+
+    private fun setUpView() {
         with(viewBinding) {
             appBar.setNavigationOnClickListener {
                 drawerLayout.open()
@@ -40,6 +46,24 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
                 return@setOnMenuItemClickListener false
             }
 
+            navigationView.menu.findItem(R.id.calculator).isChecked = true
+
+            navigationView.setNavigationItemSelectedListener {
+                when (it.itemId) {
+                    R.id.calculator -> {
+                        it.isChecked = true
+                        true
+                    }
+                    R.id.notes -> {
+                        viewModel.navigateToNotes()
+                        it.isChecked = true
+                        drawerLayout.close()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
             childFragmentManager.setFragmentResultListener(
                 "bottomSheet",
                 viewLifecycleOwner
@@ -53,10 +77,11 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
 
             }
 
+
             calculateButton.throttleClicks().doOnNext { calculate() }.subscribe(viewLifecycleOwner)
+
             resetButton.throttleClicks().doOnNext { viewModel.reset() }
                 .subscribe(viewLifecycleOwner)
-
 
             autoBuy.editorActionEvents {
                 if (it.actionId == EditorInfo.IME_ACTION_DONE) {
