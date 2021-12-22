@@ -83,6 +83,9 @@ class CalculatorScreen : Fragment(R.layout.fragment_calculator) {
             resetButton.throttleClicks().doOnNext { viewModel.reset() }
                 .subscribe(viewLifecycleOwner)
 
+            addToNotes.throttleClicks().doOnNext{ }
+                .subscribe(viewLifecycleOwner)
+
             autoBuy.editorActionEvents {
                 if (it.actionId == EditorInfo.IME_ACTION_DONE) {
                     calculate()

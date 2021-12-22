@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:openDrawer="start">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -62,6 +61,19 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addToNotes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="добавить в закладки"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                        android:textColor="?colorOnPrimary"
+                        app:strokeWidth="2dp"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -131,7 +143,8 @@
                             android:textAlignment="viewStart"
                             android:textCursorDrawable="@drawable/edit_text_cursour"
                             android:textSize="24sp"
-                            tools:ignore="TouchTargetSizeCheck" />
+                            tools:ignore="TouchTargetSizeCheck"
+                            android:imeOptions="actionDone"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -244,16 +257,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/calculateButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:backgroundTint="?attr/colorSecondary"
                     android:text="рассчитать" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/resetButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
-package com.secbreel.calculatorforsteam.data
+package com.secbreel.calculatorforsteam.data.usecase
 
+import com.secbreel.calculatorforsteam.data.SessionSkinRepository
 import com.secbreel.calculatorforsteam.domain.model.Skin
 import com.secbreel.calculatorforsteam.domain.usecase.CacheSkinUseCase
 import io.reactivex.rxjava3.core.Completable
